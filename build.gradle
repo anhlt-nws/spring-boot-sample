@@ -1,0 +1,45 @@
+import org.gradle.api.Project
+ext {
+	eclipseLinkVersion = '2.7.5'
+}
+
+
+buildscript {
+	ext {
+		springBootVersion = '2.4.5'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")	
+	}
+}
+
+// Sub project dependencies
+subprojects {
+	group = 'vn.nws.sample'
+
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+    apply plugin: 'eclipse-wtp'
+	apply plugin: 'io.spring.dependency-management'
+	
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+	
+	repositories {
+        mavenCentral()
+    }
+    
+	version = '1.0.0'
+	
+    // Base name for all project.
+    tasks.withType(Jar) {
+        baseName = "$project.name"
+    }
+    
+    tasks.withType(JavaCompile) {
+	    options.encoding = 'UTF-8'
+	}
+}
