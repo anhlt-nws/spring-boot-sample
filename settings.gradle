@@ -1,5 +1,6 @@
 rootProject.name = 'Spring Sample'
 
 include ':web.api'
+include ':service'
 include ':repository'
 include ':migration'

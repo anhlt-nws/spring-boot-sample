@@ -20,8 +20,8 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("vn.nws.sample.dao")
-@EntityScan(basePackages = "vn.nws.sample.dao")
+@EnableJpaRepositories("vn.nws.sample.repository")
+@EntityScan(basePackages = "vn.nws.sample.repository")
 public class JpaConfig extends JpaBaseConfiguration {
 	protected JpaConfig(DataSource dataSource, JpaProperties properties,
 			ObjectProvider<JtaTransactionManager> jtaTransactionManager) {
