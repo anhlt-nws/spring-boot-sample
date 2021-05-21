@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import vn.nws.sample.repository.entity.Auth;
-import vn.nws.sample.repository.entity.e.AuthStatus;
+import vn.nws.sample.repository.entity.enumerate.AuthStatus;
 
 /**
  * The Interface AuthRepository.

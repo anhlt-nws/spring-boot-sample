@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import vn.nws.sample.service.response.Response;
+
 @Service
 public class TokenAuthService {
 	public static final String AUTH_HEADER_NAME = "X-Access-Token";
@@ -36,8 +38,7 @@ public class TokenAuthService {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		// TODO: un-comment this shiet
-//		out.print(mapper.writeValueAsString(Response.ofSucceeded(authTokenResponse)));
+		out.print(mapper.writeValueAsString(Response.ofSucceeded(authTokenResponse)));
 		out.flush();
 	}
 

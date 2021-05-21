@@ -22,6 +22,8 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import vn.nws.sample.service.common.ErrorCode;
+import vn.nws.sample.service.response.Response;
 import vn.nws.sample.web.api.auth.AppUserDetailsService;
 import vn.nws.sample.web.api.auth.AuthUserDto;
 import vn.nws.sample.web.api.auth.TokenAuthService;
@@ -129,12 +131,11 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		PrintWriter out = response.getWriter();
 		// Handle bad credential and locked result
-		// TODO: un-comment this shiet
-//		if (failed instanceof BadCredentialsException) {
-//			out.write(mapper.writeValueAsString(Response.ofFailed(ErrorCode.AUTHEN_FAIL)));
-//		} else if (failed instanceof LockedException) {
-//			out.write(mapper.writeValueAsString(Response.ofFailed(ErrorCode.ACCOUNT_LOCKED)));
-//		}
+		if (failed instanceof BadCredentialsException) {
+			out.write(mapper.writeValueAsString(Response.ofFailed(ErrorCode.AUTHEN_FAIL)));
+		} else if (failed instanceof LockedException) {
+			out.write(mapper.writeValueAsString(Response.ofFailed(ErrorCode.ACCOUNT_LOCKED)));
+		}
 		out.flush();
 	}
 }

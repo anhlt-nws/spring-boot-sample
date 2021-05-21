@@ -1,21 +1,34 @@
 package vn.nws.sample.web.api.auth;
 
+import java.util.Collections;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
+import vn.nws.sample.repository.entity.Auth;
+import vn.nws.sample.repository.entity.User;
+import vn.nws.sample.repository.entity.enumerate.AuthStatus;
+import vn.nws.sample.repository.entity.repository.AuthRepository;
+import vn.nws.sample.repository.entity.repository.UserRepository;
+
 /**
  * The Class AppUserDetailsService.
  */
 @Component
+@RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
 
-	/** The app repo. */
-//	@Autowired
-//	private AdminRepository adminRepo;
-	
+	/** The auth repo. */
+	private final AuthRepository authRepo;
+
+	/** The user repo. */
+	private final UserRepository userRepo;
+
 	/**
 	 * Load user by username.
 	 *
@@ -26,27 +39,28 @@ public class AppUserDetailsService implements UserDetailsService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-//		SoAdmin admin = this.adminRepo.findByEmailIgnoreCase(username.trim()).orElse(null);
-//        if (admin == null) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//
-//        SoUserDetails userDetails = new SoUserDetails(
-//				admin.getEmail(),
-//				admin.getPassword(), 
-//				admin.getStatus() != AdminStatus.INACTIVE,
-//				true,
-//				true,
-//				admin.getStatus() != AdminStatus.LOCKED,
-//				Collections.singletonList(new SimpleGrantedAuthority(admin.getRole().name())));
-//        userDetails.setUserId(admin.getId());
-//        userDetails.setFullname(admin.getFullname());
-//        
-//        userDetails.setOtpRequired(isOtpRequired(admin.getLastLoginTime()));
-//
-//		return userDetails;
-		return null;
+
+		Auth admin = this.authRepo.findByUsernameAndStatus(username, AuthStatus.ACTIVE).orElse(null);
+		if (admin == null) {
+			throw new UsernameNotFoundException("User not found");
+		}
+
+		SoUserDetails userDetails = new SoUserDetails(admin.getUsername(), 
+				admin.getPassword(),
+				admin.getStatus() != AuthStatus.INACTIVE, 
+				true, 
+				true, 
+				admin.getStatus() != AuthStatus.LOCKED,
+				Collections.singletonList(new SimpleGrantedAuthority(admin.getRole())));
+
+		User user = this.userRepo.findByAuthId(admin.getId()).orElse(null);
+
+		if (user != null) {
+			userDetails.setUserId(user.getId());
+			userDetails.setFullname(user.getFullname());
+		}
+
+		return userDetails;
 	}
 
 }

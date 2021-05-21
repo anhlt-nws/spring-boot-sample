@@ -6,7 +6,6 @@ import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import vn.nws.sample.service.util.DateUtils;
 
 /**
  * The Class JwtTokenHandler.
@@ -68,9 +68,7 @@ public final class JwtTokenHandler {
 				.claim("email", user.getUsername())
 				.claim("fullname", user.getFullname())
 				.signWith(privateKey, signatureAlgorithm)
-				.setExpiration(new Date()).compact();
-				// TODO: un-comment this shiet
-//				.setExpiration(DateUtils.asDate(afterOneWeek)).compact();
+				.setExpiration(DateUtils.asDate(afterOneWeek)).compact();
 	}
 
 	/**

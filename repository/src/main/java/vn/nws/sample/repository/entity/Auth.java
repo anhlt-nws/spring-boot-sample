@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
-import vn.nws.sample.repository.entity.e.AuthStatus;
+import vn.nws.sample.repository.entity.enumerate.AuthStatus;
 
 
 /**

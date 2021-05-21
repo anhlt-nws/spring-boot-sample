@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import vn.nws.sample.repository.entity.User;
-import vn.nws.sample.repository.entity.e.UserStatus;
+import vn.nws.sample.repository.entity.enumerate.UserStatus;
 
 /**
  * The Interface UserRepository.

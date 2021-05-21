@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
-import vn.nws.sample.repository.entity.e.UserStatus;
+import vn.nws.sample.repository.entity.enumerate.UserStatus;
 
 
 /**
