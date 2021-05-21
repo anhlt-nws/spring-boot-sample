@@ -18,13 +18,15 @@ import vn.nws.sample.repository.entity.enumerate.UserStatus;
 @Getter
 @Setter
 @FieldNameConstants
-@Entity
+@Entity(name = "users")
 public class User extends BaseEntity {
 
 	@Column(name="auth_id")
 	private Long authId;
 
 	private String fullname;
+	
+	private String email;
 	
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;

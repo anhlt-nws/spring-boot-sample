@@ -12,10 +12,11 @@ CREATE TABLE auth
     CONSTRAINT uq_username UNIQUE (username)
 );
 
-CREATE TABLE "user"
+CREATE TABLE users
 (
-    id bigint NOT NULL,
+    id bigserial NOT NULL,
     fullname text NOT NULL,
+    email text NOT NULL,
     status text NOT NULL,
     auth_id bigint NOT NULL,
     created_at timestamp without time zone,
@@ -26,4 +27,8 @@ CREATE TABLE "user"
         ON UPDATE NO ACTION
         ON DELETE CASCADE
         NOT VALID
-)
+);
+
+-- seed
+INSERT INTO auth (id, username, password, role, status, created_at, updated_at) VALUES (1, 'admin', '$2b$10$kXGT2pbyoEU57dHBZ2maHO/JyCN07B65E1XrKIPLxqZ0403audcS.', 'ROLE_ADMIN', 'ACTIVE', now(), now());
+INSERT INTO users (fullname, email, status, auth_id, created_at, updated_at) VALUES ('Administrator', 'email@test.com', 'ACTIVE', 1, now(), now());

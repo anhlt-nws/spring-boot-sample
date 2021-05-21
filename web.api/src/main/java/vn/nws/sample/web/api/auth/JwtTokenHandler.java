@@ -26,11 +26,11 @@ import vn.nws.sample.service.util.DateUtils;
 public final class JwtTokenHandler {
 
 	/** The private key. */
-	@Value("${lineschool.private-key}")
+	@Value("${jwt.private-key}")
 	private String privateKeyStr;
 
 	/** The public key. */
-	@Value("${lineschool.public-key}")
+	@Value("${jwt.public-key}")
 	private String publicKeyStr;
 
 	/** The application user service. */

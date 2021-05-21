@@ -2,13 +2,10 @@ package vn.nws.sample.repository.entity;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,8 +37,4 @@ public class Auth extends BaseEntity {
 
 	public Auth() {
 	}
-	
-	@OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "auth_id", referencedColumnName = "id")
-    private User user;
 }
