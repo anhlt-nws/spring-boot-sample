@@ -30,17 +30,10 @@ import vn.nws.sample.web.api.filter.StatelessLoginFilter;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	/** The Constant DEV_ENV. */
-	private final static String DEV_ENV = "dev";
-	
 	/** The homepage. */
-	@Value("${homepage:}")
-	private String homepage;
+	@Value("${allowed.origins:}")
+	private String allowedOrigins;
 	
-	/** The active profile. */
-	@Value("${spring.profiles.active:prod}")
-	private String activeProfile;
-
 	/** The token authentication service. */
 	@Autowired
 	private TokenAuthService tokenAuthenticationService;
@@ -79,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() throws Exception {
 		final CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList(DEV_ENV.equals(this.activeProfile) ? "*" : homepage));
+		configuration.setAllowedOrigins(Arrays.asList(this.allowedOrigins.split(",")));
 		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
 		configuration.setAllowCredentials(false);
 		configuration.setAllowedHeaders(Arrays.asList("*"));
